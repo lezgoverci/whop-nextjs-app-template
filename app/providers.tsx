@@ -4,8 +4,15 @@ import { useEffect } from "react";
 import { Theme, WhopApp } from "@whop/react/components";
 import { WhopThemeScript } from "@whop/react/theme";
 import { Theme as FrostedTheme } from "frosted-ui";
+import { ConvexProvider } from "convex/react";
+import { getConvexClient } from "@/lib/convex-client-wrapper";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
+  // Debug: log environment variable (remove this in production)
+  console.log("NEXT_PUBLIC_CONVEX_URL:", process.env.NEXT_PUBLIC_CONVEX_URL);
+
+  const convex = getConvexClient();
+
   useEffect(() => {
     const mql = window.matchMedia("(prefers-color-scheme: dark)");
     const apply = () => {
@@ -23,11 +30,13 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
       <WhopThemeScript />
-      <FrostedTheme appearance="inherit">
-        <Theme appearance="inherit">
-          <WhopApp>{children}</WhopApp>
-        </Theme>
-      </FrostedTheme>
+      <ConvexProvider client={convex}>
+        <FrostedTheme appearance="inherit">
+          <Theme appearance="inherit">
+            <WhopApp>{children}</WhopApp>
+          </Theme>
+        </FrostedTheme>
+      </ConvexProvider>
     </>
   );
 }

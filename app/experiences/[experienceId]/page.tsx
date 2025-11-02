@@ -3,6 +3,7 @@ import { Card, Heading, Text, Badge, Separator } from "frosted-ui";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
+import ConvexCounter from "./convex-counter";
 
 export default async function ExperiencePage({
 	params,
@@ -27,7 +28,7 @@ export default async function ExperiencePage({
 			<Card className="mb-6">
 				<div className="flex justify-between items-center gap-4">
 					<div>
-						<Heading size="8" mb="2">
+						<Heading size="8" className="mb-2">
 							Hi <strong>{displayName}</strong>!
 						</Heading>
 						<Text size="4" color="gray">
@@ -45,24 +46,24 @@ export default async function ExperiencePage({
 
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 				<Card>
-					<Heading size="4" mb="3">Experience Info</Heading>
-					<Badge color="blue" mb="2">{experience.name}</Badge>
-					<Text size="2" color="gray" mb="3">ID: {experience.id}</Text>
+					<Heading size="4" className="mb-3">Experience Info</Heading>
+					<Badge color="blue" className="mb-2">{experience.name}</Badge>
+					<Text size="2" color="gray" className="mb-3">ID: {experience.id}</Text>
 				</Card>
 
 				<Card>
-					<Heading size="4" mb="3">User Info</Heading>
-					<Badge color="green" mb="2">{user.username}</Badge>
-					<Text size="2" color="gray" mb="3">ID: {user.id}</Text>
+					<Heading size="4" className="mb-3">User Info</Heading>
+					<Badge color="green" className="mb-2">{user.username}</Badge>
+					<Text size="2" color="gray" className="mb-3">ID: {user.id}</Text>
 				</Card>
 
 				<Card>
-					<Heading size="4" mb="3">Access Status</Heading>
-					<Badge color={access.hasAccess ? "green" : "red"} mb="2">
-						{access.hasAccess ? "Has Access" : "No Access"}
+					<Heading size="4" className="mb-3">Access Status</Heading>
+					<Badge color={access.has_access ? "green" : "red"} className="mb-2">
+						{access.has_access ? "Has Access" : "No Access"}
 					</Badge>
-					<Text size="2" color="gray" mb="3">
-						{access.hasAccess ? "User can access this experience" : "User needs access to this experience"}
+					<Text size="2" color="gray" className="mb-3">
+						{access.has_access ? "User can access this experience" : "User needs access to this experience"}
 					</Text>
 				</Card>
 			</div>
@@ -70,18 +71,20 @@ export default async function ExperiencePage({
 			<Separator size="4" />
 
 			<div className="space-y-6">
+				{/* Convex Database Integration */}
+				<ConvexCounter experienceId={experienceId} userId={userId} />
 				<Card>
-					<Heading size="5" mb="3">Experience Data</Heading>
+					<Heading size="5" className="mb-3">Experience Data</Heading>
 					<JsonViewer data={experience} />
 				</Card>
 
 				<Card>
-					<Heading size="5" mb="3">User Data</Heading>
+					<Heading size="5" className="mb-3">User Data</Heading>
 					<JsonViewer data={user} />
 				</Card>
 
 				<Card>
-					<Heading size="5" mb="3">Access Data</Heading>
+					<Heading size="5" className="mb-3">Access Data</Heading>
 					<JsonViewer data={access} />
 				</Card>
 			</div>
