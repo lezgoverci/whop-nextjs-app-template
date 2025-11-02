@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { Theme, WhopApp } from "@whop/react/components";
 import { WhopThemeScript } from "@whop/react/theme";
+import { Theme as FrostedTheme } from "frosted-ui";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -22,9 +23,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
       <WhopThemeScript />
-      <Theme appearance="inherit">
-        <WhopApp>{children}</WhopApp>
-      </Theme>
+      <FrostedTheme appearance="inherit">
+        <Theme appearance="inherit">
+          <WhopApp>{children}</WhopApp>
+        </Theme>
+      </FrostedTheme>
     </>
   );
 }

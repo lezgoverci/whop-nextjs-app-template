@@ -1,4 +1,5 @@
 import { Button } from "@whop/react/components";
+import { Card, Heading, Text, Badge, Separator } from "frosted-ui";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
@@ -22,39 +23,78 @@ export default async function ExperiencePage({
 	const displayName = user.name || `@${user.username}`;
 
 	return (
-		<div className="flex flex-col p-8 gap-4">
-			<div className="flex justify-between items-center gap-4">
-				<h1 className="text-9">
-					Hi <strong>{displayName}</strong>!
-				</h1>
-				<Link href="https://docs.whop.com/apps" target="_blank">
-					<Button variant="classic" className="w-full" size="3">
-						Developer Docs
-					</Button>
-				</Link>
+		<div className="p-8">
+			<Card className="mb-6">
+				<div className="flex justify-between items-center gap-4">
+					<div>
+						<Heading size="8" mb="2">
+							Hi <strong>{displayName}</strong>!
+						</Heading>
+						<Text size="4" color="gray">
+							Welcome to your whop app! Replace this template with your own app. To
+							get you started, here's some helpful data you can fetch from whop.
+						</Text>
+					</div>
+					<Link href="https://docs.whop.com/apps" target="_blank">
+						<Button variant="classic" size="3">
+							Developer Docs
+						</Button>
+					</Link>
+				</div>
+			</Card>
+
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+				<Card>
+					<Heading size="4" mb="3">Experience Info</Heading>
+					<Badge color="blue" mb="2">{experience.name}</Badge>
+					<Text size="2" color="gray" mb="3">ID: {experience.id}</Text>
+				</Card>
+
+				<Card>
+					<Heading size="4" mb="3">User Info</Heading>
+					<Badge color="green" mb="2">{user.username}</Badge>
+					<Text size="2" color="gray" mb="3">ID: {user.id}</Text>
+				</Card>
+
+				<Card>
+					<Heading size="4" mb="3">Access Status</Heading>
+					<Badge color={access.hasAccess ? "green" : "red"} mb="2">
+						{access.hasAccess ? "Has Access" : "No Access"}
+					</Badge>
+					<Text size="2" color="gray" mb="3">
+						{access.hasAccess ? "User can access this experience" : "User needs access to this experience"}
+					</Text>
+				</Card>
 			</div>
 
-			<p className="text-3 text-gray-10">
-				Welcome to you whop app! Replace this template with your own app. To
-				get you started, here's some helpful data you can fetch from whop.
-			</p>
+			<Separator size="4" />
 
-			<h3 className="text-6 font-bold">Experience data</h3>
-			<JsonViewer data={experience} />
+			<div className="space-y-6">
+				<Card>
+					<Heading size="5" mb="3">Experience Data</Heading>
+					<JsonViewer data={experience} />
+				</Card>
 
-			<h3 className="text-6 font-bold">User data</h3>
-			<JsonViewer data={user} />
+				<Card>
+					<Heading size="5" mb="3">User Data</Heading>
+					<JsonViewer data={user} />
+				</Card>
 
-			<h3 className="text-6 font-bold">Access data</h3>
-			<JsonViewer data={access} />
+				<Card>
+					<Heading size="5" mb="3">Access Data</Heading>
+					<JsonViewer data={access} />
+				</Card>
+			</div>
 		</div>
 	);
 }
 
 function JsonViewer({ data }: { data: any }) {
 	return (
-		<pre className="text-2 border border-gray-a4 rounded-lg p-4 bg-gray-a2 max-h-72 overflow-y-auto">
-			<code className="text-gray-10">{JSON.stringify(data, null, 2)}</code>
-		</pre>
+		<div className="bg-gray-1 border border-gray-6 rounded-lg p-4 max-h-72 overflow-y-auto">
+			<pre className="text-sm font-mono text-gray-11">
+				<code>{JSON.stringify(data, null, 2)}</code>
+			</pre>
+		</div>
 	);
 }
