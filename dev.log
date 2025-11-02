@@ -1,0 +1,31 @@
+
+> whop-nextjs-app-template@0.2.0 dev /home/engine/project
+> whop-proxy --command 'next dev --turbopack'
+
+
+ --------------------------------------------------
+ ⋅ ✔︎ Running your app on: http://localhost:3000
+ --------------------------------------------------
+
+ ⋅ to bypass the proxy, use the following original port: 36837
+ ⋅ logs from your app will now appear here ↓
+
+   ▲ Next.js 16.0.0 (Turbopack)
+   - Local:        http://localhost:36837
+   - Network:      http://10.16.54.178:36837
+   - Environments: .env.development
+   - Experiments (use with caution):
+     · optimizePackageImports
+     · serverActions
+
+ ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+ ✓ Ready in 1541ms
+ ○ Compiling / ...
+ HEAD / 200 in 6.5s (compile: 6.3s, render: 243ms)
+ HEAD /discover 200 in 492ms (compile: 440ms, render: 52ms)
+ ✓ Compiled in 141ms
