@@ -9,6 +9,7 @@
  */
 
 import type * as counter from "../counter.js";
+import type * as todo from "../todo.js";
 import type * as user from "../user.js";
 
 import type {
@@ -27,6 +28,7 @@ import type {
  */
 declare const fullApi: ApiFromModules<{
   counter: typeof counter;
+  todo: typeof todo;
   user: typeof user;
 }>;
 declare const fullApiWithMounts: typeof fullApi;

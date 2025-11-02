@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
 import ConvexCounter from "./convex-counter";
+import TodoList from "./todo-list";
 
 export default async function ExperiencePage({
 	params,
@@ -73,6 +74,10 @@ export default async function ExperiencePage({
 			<div className="space-y-6">
 				{/* Convex Database Integration */}
 				<ConvexCounter experienceId={experienceId} userId={userId} />
+
+				{/* Todo List */}
+				<TodoList experienceId={experienceId} userId={userId} />
+
 				<Card>
 					<Heading size="5" className="mb-3">Experience Data</Heading>
 					<JsonViewer data={experience} />
