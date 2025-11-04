@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import FontProvider from "@/components/font-provider";
-
-const inter = Inter({
-    subsets: ["latin"],
-    display: "swap",
-    variable: "--font-inter",
-    weight: ["300", "400", "500", "700"],
-});
+import TypographyProvider from "@/components/typography-provider";
 
 export const metadata: Metadata = {
     title: "Whop App",
@@ -22,9 +15,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning className={inter.variable}>
+        <html lang="en" suppressHydrationWarning>
             <body className="antialiased frosted-ui">
                 <FontProvider />
+                <TypographyProvider />
                 <Providers>{children}</Providers>
             </body>
         </html>
