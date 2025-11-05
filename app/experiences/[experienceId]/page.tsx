@@ -5,6 +5,7 @@ import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
 import ConvexCounter from "./convex-counter";
 import TodoList from "./todo-list";
+import FrostedUIShowcase from "@/components/frosted-ui-showcase";
 
 export default async function ExperiencePage({
 	params,
@@ -72,6 +73,9 @@ export default async function ExperiencePage({
 			<Separator size="4" />
 
 			<div className="space-y-6">
+				{/* Frosted UI Showcase */}
+				<FrostedUIShowcase />
+
 				{/* Convex Database Integration */}
 				<ConvexCounter experienceId={experienceId} userId={userId} />
 
