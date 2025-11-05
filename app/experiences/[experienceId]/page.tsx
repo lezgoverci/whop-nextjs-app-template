@@ -7,20 +7,42 @@ import ConvexCounter from "./convex-counter";
 import TodoList from "./todo-list";
 import FrostedUIShowcase from "@/components/frosted-ui-showcase";
 
+/**
+ * EXPERIENCE DETAIL PAGE - Dynamic Route with Full SDK Integration
+ *
+ * This page demonstrates the most common pattern in Whop apps:
+ * a dynamic route that fetches and displays data for a specific experience.
+ *
+ * Route: /experiences/[experienceId]
+ * - The [experienceId] parameter comes from the URL
+ * - Example: /experiences/exp_1234567890abcdef
+ *
+ * Pattern:
+ * 1. Accept params as a Promise (Next.js 13+ App Router)
+ * 2. Verify user authentication using whopsdk.verifyUserToken()
+ * 3. Fetch data using the SDK (experience, user, access)
+ * 4. Render the UI based on the fetched data
+ */
 export default async function ExperiencePage({
 	params,
 }: {
 	params: Promise<{ experienceId: string }>;
 }) {
+	// Step 1: Extract the experienceId from the URL parameters
+	// Note: params is a Promise in the App Router, so we need to await it
 	const { experienceId } = await params;
-	// Ensure the user is logged in on whop.
+
+	// Step 2: Verify user authentication
+	// This ensures the user is logged into Whop and returns their userId
+	// If not authenticated, this will throw an error
 	const { userId } = await whopsdk.verifyUserToken(await headers());
 
-	// Fetch the neccessary data we want from whop.
+	// Step 3: Fetch required data from the Whop SDK
+	// This demonstrates the core pattern: verify, then fetch
 	const [experience, user, access] = await Promise.all([
-		whopsdk.experiences.retrieve(experienceId),
-		whopsdk.users.retrieve(userId),
-		whopsdk.users.checkAccess(experienceId, { id: userId }),
+		whopsdk.experiences.retrieve(experienceId),      // Get experience details
+		whopsdk.users.retrieve(userId),                 // Get user profile
+		whopsdk.users.checkAccess(experienceId, { id: userId }), // Check permissions
 	]);
 
 	const displayName = user.name || `@${user.username}`;
@@ -34,15 +56,27 @@ export default async function ExperiencePage({
 							Hi <strong>{displayName}</strong>!
 						</Heading>
 						<Text size="4" color="gray">
-							Welcome to your whop app! Replace this template with your own app. To
-							get you started, here's some helpful data you can fetch from whop.
+							Welcome to your Whop app! This page shows how dynamic routing works
+							with the [experienceId] parameter. Replace this with your own app logic.
 						</Text>
+						<div className="mt-3 bg-blue-50 border border-blue-200 rounded-lg p-3 text-left">
+							<Text size="2" color="blue" className="font-mono">
+								📍 Current Route: <strong>/experiences/{experienceId}</strong>
+							</Text>
+						</div>
 					</div>
-					<Link href="https://docs.whop.com/apps" target="_blank">
-						<Button variant="classic" size="3">
-							Developer Docs
-						</Button>
-					</Link>
+					<div className="flex flex-col gap-2">
+						<Link href={`/experiences/${experienceId}/edit`}>
+							<Button variant="classic" size="3">
+								✏️ Edit (Admin Only)
+							</Button>
+						</Link>
+						<Link href="https://docs.whop.com/apps" target="_blank">
+							<Button variant="outline" size="3">
+								Developer Docs
+							</Button>
+						</Link>
+					</div>
 				</div>
 			</Card>
 
@@ -71,6 +105,56 @@ export default async function ExperiencePage({
 			</div>
 
 			<Separator size="4" />
+
+			{/* Routing Education Section */}
+			<Card className="mb-6">
+				<Heading size="5" className="mb-4">🎓 Understanding This Route Pattern</Heading>
+				<div className="grid md:grid-cols-2 gap-4">
+					<div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+						<Text size="3" weight="bold" color="blue" className="mb-2">
+							📍 Route Structure
+						</Text>
+						<Text size="2" color="blue" className="font-mono">
+							/experiences/[experienceId]
+						</Text>
+						<Text size="2" color="gray" className="mt-2">
+							The <code className="bg-blue-100 px-1 rounded">[experienceId]</code> is a dynamic
+							parameter. When someone visits /experiences/exp_123, the page receives
+							<code className="bg-blue-100 px-1 rounded">experienceId = "exp_123"</code>
+						</Text>
+					</div>
+					<div className="bg-green-50 border border-green-200 rounded-lg p-4">
+						<Text size="3" weight="bold" color="green" className="mb-2">
+							🔑 Key Steps
+						</Text>
+						<Text size="2" color="gray">
+							1. Await params to get experienceId
+							<br />
+							2. Verify user with whopsdk.verifyUserToken()
+							<br />
+							3. Fetch experience, user, and access data
+							<br />
+							4. Render UI with the fetched data
+						</Text>
+					</div>
+				</div>
+
+				<div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4">
+					<Text size="3" weight="bold" color="amber" className="mb-2">
+						🔗 Nested Routes
+					</Text>
+					<Text size="2" color="gray">
+						You can create sub-pages under this route by adding directories:
+						<br />
+						<code className="bg-amber-100 px-2 py-1 rounded text-xs block mt-1">
+							/experiences/[experienceId]/edit - Edit this experience
+						</code>
+						<code className="bg-amber-100 px-2 py-1 rounded text-xs block mt-1">
+							/experiences/[experienceId]/create - Create something new
+						</code>
+					</Text>
+				</div>
+			</Card>
 
 			<div className="space-y-6">
 				{/* Frosted UI Showcase */}

@@ -1,54 +1,71 @@
-import { Button, Card, Text } from "@whop/react/components";
+import Link from "next/link";
+import { Button } from "@whop/react/components";
 
+/**
+ * DISCOVER PAGE - Marketing/Discovery Route
+ *
+ * This is a static page that doesn't require authentication.
+ * Typically used as a public-facing page that showcases
+ * your app's features before users engage with it.
+ *
+ * Route: /discover
+ * File: app/discover/page.tsx
+ */
 export default function DiscoverPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
             <div className="max-w-4xl mx-auto px-4 py-16">
+                {/* Navigation */}
+                <Link href="/" className="inline-block mb-6">
+                    <Button variant="ghost" size="2">
+                        ← Back to Home
+                    </Button>
+                </Link>
+
                 {/* Title */}
                 <h1 className="text-5xl font-bold text-gray-900 mb-6 text-center">
                     Discover your app
                 </h1>
+
                 {/* Main Description Card (Frosted UI) */}
-                <Card className="text-center mb-16" size="3" variant="surface">
-                    <Text asChild size="5" className="max-w-2xl mx-auto mb-4 text-gray-10">
-                        <p>
-                            This is your app's discover page—showcase what your app does
-                            and how it helps creators.
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-md text-center mb-16 border border-gray-200">
+                    <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-4">
+                        This is your app's discover page—showcase what your app does
+                        and how it helps creators.
+                    </p>
+                    <p className="text-gray-600 max-w-2xl mx-auto mb-4">
+                        Share real success stories, link to thriving Whop communities
+                        using your app, and add referral links to earn affiliate fees
+                        when people install your app.
+                    </p>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left max-w-2xl mx-auto">
+                        <p className="text-sm text-blue-900">
+                            💡 <strong>Routing Tip:</strong> This is a static route with no parameters.
+                            It's perfect for marketing content that doesn't need to know about
+                            specific experiences or companies.
                         </p>
-                    </Text>
-                    <Text asChild size="3" className="max-w-2xl mx-auto mb-2 text-gray-9">
-                        <p>
-                            Share real success stories, link to thriving Whop communities
-                            using your app, and add referral links to earn affiliate fees
-                            when people install your app.
-                        </p>
-                    </Text>
-                    <Text asChild size="2" className="max-w-2xl mx-auto text-gray-8">
-                        <p>
-                            💡 <strong>Tip:</strong> Clearly explain your app's value
-                            proposition and how it helps creators make money or grow their
-                            communities.
-                        </p>
-                    </Text>
-                </Card>
+                    </div>
+                </div>
 
                 {/* Pro Tips Section */}
                 <div className="grid md:grid-cols-2 gap-6 mb-10">
                     <div className="bg-white rounded-xl p-6 shadow-md flex flex-col gap-2">
                         <h3 className="font-semibold text-gray-900">
-                            Showcase Real Success
+                            🎯 Static Route Pattern
                         </h3>
                         <p className="text-sm text-gray-600">
-                            Link to real Whop communities using your app, with revenue
-                            and member stats.
+                            <code className="bg-gray-100 px-2 py-1 rounded text-xs">/discover</code>
+                        </p>
+                        <p className="text-xs text-gray-500">
+                            No parameters, no authentication required. Just pure marketing content.
                         </p>
                     </div>
                     <div className="bg-white rounded-xl p-6 shadow-md flex flex-col gap-2">
                         <h3 className="font-semibold text-gray-900">
-                            Include Referral Links
+                            💰 Include Referral Links
                         </h3>
                         <p className="text-sm text-gray-600">
-                            Add <code>?a=your_app_id</code> to Whop links to earn
+                            Add <code className="bg-gray-100 px-2 py-1 rounded text-xs">?a=your_app_id</code> to Whop links to earn
                             affiliate commissions.
                         </p>
                     </div>
@@ -112,6 +129,28 @@ export default function DiscoverPage() {
                             </a>
                         </Button>
                     </div>
+                </div>
+
+                {/* Routing Education Box */}
+                <div className="mt-12 bg-amber-50 border border-amber-200 rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-amber-900 mb-3">
+                        📚 Learn About Whop Routing
+                    </h3>
+                    <div className="space-y-2 text-sm text-amber-800">
+                        <p>
+                            <strong>Static Routes:</strong> Like this page, they don't change based on parameters.
+                            Examples: <code className="bg-amber-100 px-1 rounded">/</code>, <code className="bg-amber-100 px-1 rounded">/discover</code>
+                        </p>
+                        <p>
+                            <strong>Dynamic Routes:</strong> Use square brackets for parameters.
+                            Examples: <code className="bg-amber-100 px-1 rounded">/experiences/[experienceId]</code>, <code className="bg-amber-100 px-1 rounded">/dashboard/[companyId]</code>
+                        </p>
+                    </div>
+                    <Link href="/" className="inline-block mt-4">
+                        <Button variant="classic" size="2">
+                            View All Routing Examples →
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </div>
