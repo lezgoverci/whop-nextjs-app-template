@@ -91,14 +91,16 @@ export default function TodoList({ experienceId, userId }: TodoListProps) {
       {/* Add new todo form */}
       <form onSubmit={handleAddTodo} className="mb-6">
         <div className="flex gap-2">
-          <input
-            type="text"
-            value={newTodoText}
-            onChange={(e) => setNewTodoText(e.target.value)}
-            placeholder="Add a new todo..."
-            autoComplete="off"
-            className="flex-1 px-3 py-2 border border-gray-6 rounded text-sm placeholder-gray-10 focus:outline-none focus:border-gray-8"
-          />
+          <div className="flex-1">
+            <input
+              type="text"
+              value={newTodoText}
+              onChange={(e) => setNewTodoText(e.target.value)}
+              placeholder="Add a new todo..."
+              className="w-full px-3 py-2 border border-gray-6 rounded-lg text-sm placeholder-gray-10 focus:outline-none focus:border-gray-8 bg-gray-1"
+              autoComplete="off"
+            />
+          </div>
           <IconButton
             type="submit"
             size="2"
@@ -114,7 +116,7 @@ export default function TodoList({ experienceId, userId }: TodoListProps) {
       {incompleteTodos.length > 0 && (
         <div className="mb-4">
           {incompleteTodos.map((todo) => (
-            <div key={todo._id} className="flex items-center gap-3 py-2 border-b border-gray-4 last:border-b-0">
+            <div key={todo._id} className="flex items-center gap-3 py-2 border-b border-gray-6 last:border-b-0">
               <Checkbox
                 checked={todo.completed}
                 onCheckedChange={() => handleToggleComplete(todo._id)}
@@ -131,7 +133,7 @@ export default function TodoList({ experienceId, userId }: TodoListProps) {
                       if (e.key === 'Enter') handleSaveEdit(todo._id);
                       if (e.key === 'Escape') handleCancelEdit();
                     }}
-                    className="flex-1 px-2 py-1 border border-gray-6 rounded text-sm focus:outline-none focus:border-gray-8"
+                    className="flex-1 px-2 py-1 border border-gray-6 rounded text-sm focus:outline-none focus:border-gray-8 bg-gray-1"
                     autoComplete="off"
                     autoFocus
                   />

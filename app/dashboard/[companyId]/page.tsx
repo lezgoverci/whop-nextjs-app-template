@@ -1,5 +1,5 @@
 import { Button } from "@whop/react/components";
-import { Card, Heading, Text, Badge, Separator } from "frosted-ui";
+import { Card, Heading, Text, Badge, Separator, Callout, Code } from "frosted-ui";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
@@ -57,22 +57,27 @@ export default async function DashboardPage({
 							Managing <strong>{company.title}</strong> - Welcome, {displayName}!
 						</Text>
 						<div className="flex gap-3 flex-wrap">
-							<div className="bg-purple-50 border border-purple-200 rounded-lg p-2">
-								<Text size="2" color="purple" className="font-mono">
-									Company ID: {company.id}
-								</Text>
-							</div>
-							<div className="bg-blue-50 border border-blue-200 rounded-lg p-2">
-								<Text size="2" color="blue">
-									{company.member_count.toLocaleString()} members
-								</Text>
-							</div>
-							{company.verified && (
-								<div className="bg-green-50 border border-green-200 rounded-lg p-2">
-									<Text size="2" color="green">
-										✓ Verified
+							<Callout.Root color="purple" className="p-2">
+								<Callout.Text>
+									<Text size="2" className="font-mono">
+										Company ID: {company.id}
 									</Text>
-								</div>
+								</Callout.Text>
+							</Callout.Root>
+							<Callout.Root color="blue" className="p-2">
+								<Callout.Text>
+									<Text size="2">
+										{company.member_count.toLocaleString()} members
+									</Text>
+								</Callout.Text>
+							</Callout.Root>
+							{company.verified && (
+								<Callout.Root color="green" className="p-2">
+									<Callout.Icon>✓</Callout.Icon>
+									<Callout.Text>
+										<Text size="2">Verified</Text>
+									</Callout.Text>
+								</Callout.Root>
 							)}
 						</div>
 					</div>
@@ -90,47 +95,53 @@ export default async function DashboardPage({
 			<Card className="mb-6">
 				<Heading size="5" className="mb-4">🎓 Company-Centric Routing</Heading>
 				<div className="grid md:grid-cols-2 gap-4">
-					<div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="purple" className="mb-2">
-							📍 Route Pattern
-						</Text>
-						<Text size="2" color="purple" className="font-mono">
-							/dashboard/[companyId]
-						</Text>
-						<Text size="2" color="gray" className="mt-2">
-							This uses <code className="bg-purple-100 px-1 rounded">[companyId]</code> instead of
-							<code className="bg-purple-100 px-1 rounded">[experienceId]</code>. The company ID:
-							<br />
-							- Starts with <code className="bg-purple-100 px-1 rounded">biz_</code> prefix
-							<br />
-							- Represents a business/company
-							<br />
-							- Used for multi-tenant scenarios
-						</Text>
-					</div>
-					<div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="amber" className="mb-2">
-							🎯 When to Use
-						</Text>
-						<Text size="2" color="gray">
-							<strong>Experience Routes</strong> (exp_):
-							<br />
-							- Single experience management
-							<br />
-							- User-focused features
-							<br />
-							- Content within an experience
-							<br />
-							<br />
-							<strong>Company Routes</strong> (biz_):
-							<br />
-							- Multi-experience dashboards
-							<br />
-							- Business owners/admins
-							<br />
-							- Company-wide analytics
-						</Text>
-					</div>
+					<Callout.Root color="purple">
+						<Callout.Icon>📍</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								Route Pattern
+							</Text>
+							<Text size="2" className="font-mono">
+								/dashboard/[companyId]
+							</Text>
+							<Text size="2" color="gray" className="mt-2">
+								This uses <Code>[companyId]</Code> instead of
+								<Code>[experienceId]</Code>. The company ID:
+								<br />
+								- Starts with <Code>biz_</Code> prefix
+								<br />
+								- Represents a business/company
+								<br />
+								- Used for multi-tenant scenarios
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
+					<Callout.Root color="yellow">
+						<Callout.Icon>🎯</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								When to Use
+							</Text>
+							<Text size="2" color="gray">
+								<strong>Experience Routes</strong> (exp_):
+								<br />
+								- Single experience management
+								<br />
+								- User-focused features
+								<br />
+								- Content within an experience
+								<br />
+								<br />
+								<strong>Company Routes</strong> (biz_):
+								<br />
+								- Multi-experience dashboards
+								<br />
+								- Business owners/admins
+								<br />
+								- Company-wide analytics
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
 				</div>
 			</Card>
 
@@ -178,23 +189,22 @@ export default async function DashboardPage({
 						From this company dashboard, you can navigate to specific experiences
 						or manage company-wide settings.
 					</Text>
-					<div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-						<Text size="2" color="blue" weight="bold" className="mb-2">
-							💡 Routing Pattern
-						</Text>
-						<Text size="2" color="gray">
-							To link to an experience from here, use:
-							<br />
-							<code className="bg-blue-100 px-2 py-1 rounded text-xs block mt-1">
-								/experiences/exp_1234567890abcdef
-							</code>
-							Or for a create page:
-							<br />
-							<code className="bg-blue-100 px-2 py-1 rounded text-xs block mt-1">
-								/experiences/exp_1234567890abcdef/create
-							</code>
-						</Text>
-					</div>
+					<Callout.Root color="blue">
+						<Callout.Icon>💡</Callout.Icon>
+						<Callout.Text>
+							<Text size="2" weight="bold" className="mb-2">
+								Routing Pattern
+							</Text>
+							<Text size="2" color="gray">
+								To link to an experience from here, use:
+								<br />
+								<Code className="block mt-1">/experiences/exp_1234567890abcdef</Code>
+								Or for a create page:
+								<br />
+								<Code className="block mt-1">/experiences/exp_1234567890abcdef/create</Code>
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
 				</Card>
 
 				{/* Data Viewer */}
@@ -214,8 +224,10 @@ export default async function DashboardPage({
 
 function JsonViewer({ data }: { data: any }) {
 	return (
-		<pre className="text-2 border border-gray-a4 rounded-lg p-4 bg-gray-a2 max-h-72 overflow-y-auto">
-			<code className="text-gray-10">{JSON.stringify(data, null, 2)}</code>
-		</pre>
+		<Card className="p-4 max-h-72 overflow-y-auto">
+			<pre className="text-sm font-mono text-gray-11">
+				<code>{JSON.stringify(data, null, 2)}</code>
+			</pre>
+		</Card>
 	);
 }

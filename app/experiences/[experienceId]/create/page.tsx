@@ -1,5 +1,5 @@
 import { Button } from "@whop/react/components";
-import { Card, Heading, Text, Badge, Separator } from "frosted-ui";
+import { Card, Heading, Text, Badge, Separator, Callout, Code, TextField, Select } from "frosted-ui";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
@@ -55,16 +55,21 @@ export default async function CreatePage({
 							This demonstrates form handling in a Whop app.
 						</Text>
 						<div className="flex gap-3 flex-wrap">
-							<div className="bg-blue-50 border border-blue-200 rounded-lg p-2">
-								<Text size="2" color="blue" className="font-mono">
-									👤 {displayName}
-								</Text>
-							</div>
-							<div className="bg-green-50 border border-green-200 rounded-lg p-2">
-								<Text size="2" color="green" className="font-mono">
-									✅ Access: {access.accessLevel}
-								</Text>
-							</div>
+							<Callout.Root color="blue" className="p-2">
+								<Callout.Text>
+									<Text size="2" className="font-mono">
+										👤 {displayName}
+									</Text>
+								</Callout.Text>
+							</Callout.Root>
+							<Callout.Root color="green" className="p-2">
+								<Callout.Icon>✅</Callout.Icon>
+								<Callout.Text>
+									<Text size="2" className="font-mono">
+										Access: {access.accessLevel}
+									</Text>
+								</Callout.Text>
+							</Callout.Root>
 						</div>
 					</div>
 					<div className="flex flex-col gap-2">
@@ -81,37 +86,46 @@ export default async function CreatePage({
 			<Card className="mb-6">
 				<Heading size="5" className="mb-4">🎓 Form Handling Pattern</Heading>
 				<div className="grid md:grid-cols-3 gap-4">
-					<div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="indigo" className="mb-2">
-							📍 Route
-						</Text>
-						<Text size="2" color="indigo" className="font-mono">
-							/experiences/[experienceId]/create
-						</Text>
-						<Text size="2" color="gray" className="mt-2">
-							Nested under the main experience route.
-						</Text>
-					</div>
-					<div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="teal" className="mb-2">
-							📝 Form Pattern
-						</Text>
-						<Text size="2" color="gray">
-							1. Client-side form with useState
-							<br />
-							2. Server action or API route
-							<br />
-							3. Handle submission & validation
-						</Text>
-					</div>
-					<div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="amber" className="mb-2">
-							💡 Use Cases
-						</Text>
-						<Text size="2" color="gray">
-							Create posts, tickets, content, orders, or any resource within an experience.
-						</Text>
-					</div>
+					<Callout.Root color="blue">
+						<Callout.Icon>📍</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								Route
+							</Text>
+							<Text size="2" className="font-mono">
+								/experiences/[experienceId]/create
+							</Text>
+							<Text size="2" color="gray" className="mt-2">
+								Nested under the main experience route.
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
+					<Callout.Root color="teal">
+						<Callout.Icon>📝</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								Form Pattern
+							</Text>
+							<Text size="2" color="gray">
+								1. Client-side form with useState
+								<br />
+								2. Server action or API route
+								<br />
+								3. Handle submission & validation
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
+					<Callout.Root color="yellow">
+						<Callout.Icon>💡</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								Use Cases
+							</Text>
+							<Text size="2" color="gray">
+								Create posts, tickets, content, orders, or any resource within an experience.
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
 				</div>
 			</Card>
 
@@ -126,10 +140,8 @@ export default async function CreatePage({
 							<Text size="3" weight="bold" className="mb-2">
 								Title
 							</Text>
-							<input
-								type="text"
+							<TextField.Root
 								placeholder="Enter a title for your new item..."
-								className="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 text-sm"
 							/>
 						</div>
 
@@ -140,7 +152,7 @@ export default async function CreatePage({
 							<textarea
 								placeholder="Describe your new item..."
 								rows={6}
-								className="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 text-sm"
+								className="w-full p-3 text-sm border border-gray-6 rounded-lg"
 							/>
 						</div>
 
@@ -148,32 +160,39 @@ export default async function CreatePage({
 							<Text size="3" weight="bold" className="mb-2">
 								Category
 							</Text>
-							<select className="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 text-sm">
-								<option>Select a category...</option>
-								<option>Category 1</option>
-								<option>Category 2</option>
-								<option>Category 3</option>
-							</select>
+							<Select.Root>
+								<Select.Trigger>
+									<Select.Value placeholder="Select a category..." />
+								</Select.Trigger>
+								<Select.Content>
+									<Select.Item value="category1">Category 1</Select.Item>
+									<Select.Item value="category2">Category 2</Select.Item>
+									<Select.Item value="category3">Category 3</Select.Item>
+								</Select.Content>
+							</Select.Root>
 						</div>
 
-						<div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-							<Text size="2" color="blue" weight="bold" className="mb-2">
-								💡 Implementation Notes
-							</Text>
-							<Text size="2" color="gray">
-								In a real app, you would:
-								<br />
-								1. Use React state to manage form data
-								<br />
-								2. Handle form submission with server actions or API routes
-								<br />
-								3. Validate data before saving
-								<br />
-								4. Save to your database (Convex, Supabase, etc.)
-								<br />
-								5. Redirect on success or show errors
-							</Text>
-						</div>
+						<Callout.Root color="blue">
+							<Callout.Icon>💡</Callout.Icon>
+							<Callout.Text>
+								<Text size="2" weight="bold" className="mb-2">
+									Implementation Notes
+								</Text>
+								<Text size="2" color="gray">
+									In a real app, you would:
+									<br />
+									1. Use React state to manage form data
+									<br />
+									2. Handle form submission with server actions or API routes
+									<br />
+									3. Validate data before saving
+									<br />
+									4. Save to your database (Convex, Supabase, etc.)
+									<br />
+									5. Redirect on success or show errors
+								</Text>
+							</Callout.Text>
+						</Callout.Root>
 
 						<div className="flex gap-3">
 							<Button variant="classic" size="3">
@@ -191,20 +210,20 @@ export default async function CreatePage({
 				{/* Context Data */}
 				<Card>
 					<Heading size="5" className="mb-3">Experience Context</Heading>
-					<div className="bg-gray-1 border border-gray-6 rounded-lg p-4 max-h-72 overflow-y-auto">
+					<Card className="p-4 max-h-72 overflow-y-auto">
 						<pre className="text-sm font-mono text-gray-11">
 							<code>{JSON.stringify({ experienceId, userId, access }, null, 2)}</code>
 						</pre>
-					</div>
+					</Card>
 				</Card>
 
 				<Card>
 					<Heading size="5" className="mb-3">Experience Data</Heading>
-					<div className="bg-gray-1 border border-gray-6 rounded-lg p-4 max-h-72 overflow-y-auto">
+					<Card className="p-4 max-h-72 overflow-y-auto">
 						<pre className="text-sm font-mono text-gray-11">
 							<code>{JSON.stringify(experience, null, 2)}</code>
 						</pre>
-					</div>
+					</Card>
 				</Card>
 			</div>
 		</div>

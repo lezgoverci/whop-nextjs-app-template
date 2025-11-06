@@ -1,4 +1,5 @@
 import { Button } from "@whop/react/components";
+import { Card, Heading, Text, Code, Badge } from "frosted-ui";
 import Link from "next/link";
 
 /**
@@ -12,14 +13,14 @@ export default function Page() {
 	return (
 		<div className="py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-4xl mx-auto space-y-6">
-				<div className="rounded-3xl bg-gray-a2 p-6 border border-gray-a4">
-					<div className="text-center mt-8 mb-8">
-						<h1 className="text-8 font-bold text-gray-12 mb-4">
+				<Card className="p-8">
+					<div className="text-center mb-8">
+						<Heading size="8" className="mb-4">
 							Whop App Routing Showcase
-						</h1>
-						<p className="text-4 text-gray-10">
+						</Heading>
+						<Text size="4" color="gray">
 							Learn how page routing works in Whop applications
-						</p>
+						</Text>
 					</div>
 
 					<div className="grid gap-4 sm:grid-cols-2">
@@ -34,72 +35,85 @@ export default function Page() {
 							</Button>
 						</Link>
 					</div>
-				</div>
+				</Card>
 
-				<div className="rounded-3xl bg-blue-a2 p-6 border border-blue-a4">
-					<h2 className="text-5 font-semibold text-blue-12 mb-4">
+				<Card className="p-6">
+					<Heading size="6" className="mb-4 text-blue-12">
 						🎯 Experience Routes (Dynamic Routing)
-					</h2>
-					<p className="text-sm text-blue-11 mb-4">
-						These routes use the <code className="bg-blue-a3 px-1 rounded">[experienceId]</code> parameter
-						to access specific experiences. Replace <code className="bg-blue-a3 px-1 rounded">exp_xxxxxxxxxxxxxx</code> with a real experience ID.
-					</p>
+					</Heading>
+					<Text size="2" color="gray" className="mb-4">
+						These routes use the <Code>[experienceId]</Code> parameter
+						to access specific experiences. Replace <Code>exp_xxxxxxxxxxxxxx</Code> with a real experience ID.
+					</Text>
 					<div className="grid gap-3">
-						<div className="bg-blue-a3 rounded-lg p-3 border border-blue-a5">
+						<Card className="p-3 bg-blue-a1 border-blue-6">
 							<Link href="/experiences/exp_xxxxxxxxxxxxxx" className="text-blue-12 hover:underline">
 								👉 /experiences/[experienceId] - View Experience
 							</Link>
-						</div>
-						<div className="bg-blue-a3 rounded-lg p-3 border border-blue-a5">
+						</Card>
+						<Card className="p-3 bg-blue-a1 border-blue-6">
 							<Link href="/experiences/exp_xxxxxxxxxxxxxx/edit" className="text-blue-12 hover:underline">
 								👉 /experiences/[experienceId]/edit - Edit Experience (Admin)
 							</Link>
-						</div>
-						<div className="bg-blue-a3 rounded-lg p-3 border border-blue-a5">
+						</Card>
+						<Card className="p-3 bg-blue-a1 border-blue-6">
 							<Link href="/experiences/exp_xxxxxxxxxxxxxx/create" className="text-blue-12 hover:underline">
 								👉 /experiences/[experienceId]/create - Create Something
 							</Link>
-						</div>
+						</Card>
 					</div>
-				</div>
+				</Card>
 
-				<div className="rounded-3xl bg-purple-a2 p-6 border border-purple-a4">
-					<h2 className="text-5 font-semibold text-purple-12 mb-4">
+				<Card className="p-6">
+					<Heading size="6" className="mb-4 text-purple-12">
 						🏢 Company Routes
-					</h2>
-					<p className="text-sm text-purple-11 mb-4">
-						Routes using <code className="bg-purple-a3 px-1 rounded">[companyId]</code> parameter
-						for company-specific dashboards. Replace <code className="bg-purple-a3 px-1 rounded">biz_xxxxxxxxxxxxxx</code> with a real company ID.
-					</p>
-					<div className="bg-purple-a3 rounded-lg p-3 border border-purple-a5">
+					</Heading>
+					<Text size="2" color="gray" className="mb-4">
+						Routes using <Code>[companyId]</Code> parameter
+						for company-specific dashboards. Replace <Code>biz_xxxxxxxxxxxxxx</Code> with a real company ID.
+					</Text>
+					<Card className="p-3 bg-purple-a1 border-purple-6">
 						<Link href="/dashboard/biz_xxxxxxxxxxxxxx" className="text-purple-12 hover:underline">
 							👉 /dashboard/[companyId] - Company Dashboard
 						</Link>
-					</div>
-				</div>
+					</Card>
+				</Card>
 
-				<div className="rounded-3xl bg-green-a2 p-4 border border-green-a4">
-					<h3 className="text-5 font-semibold text-green-12 mb-2">
+				<Card className="p-6 bg-green-a1 border-green-6">
+					<Heading size="6" className="mb-3 text-green-12">
 						🎉 Convex Database Included!
-					</h3>
-					<p className="text-sm text-green-11">
+					</Heading>
+					<Text size="2" color="green-11">
 						This template includes Convex for real-time database functionality.
 						Check out the experience routes to see it in action.
-					</p>
-				</div>
+					</Text>
+				</Card>
 
-				<div className="rounded-3xl bg-yellow-a2 p-4 border border-yellow-a4">
-					<h3 className="text-5 font-semibold text-yellow-12 mb-2">
+				<Card className="p-6 bg-yellow-a1 border-yellow-6">
+					<Heading size="6" className="mb-3 text-yellow-12">
 						💡 Routing Patterns in Whop Apps
-					</h3>
-					<ul className="text-sm text-yellow-11 space-y-2 list-disc list-inside">
-						<li>Dynamic routes use square brackets: <code className="bg-yellow-a3 px-1 rounded">[param]</code></li>
-						<li>Experience IDs start with <code className="bg-yellow-a3 px-1 rounded">exp_</code></li>
-						<li>Company IDs start with <code className="bg-yellow-a3 px-1 rounded">biz_</code></li>
-						<li>Nested routes are created with additional directories</li>
-						<li>All routes are in the <code className="bg-yellow-a3 px-1 rounded">app/</code> directory (Next.js App Router)</li>
-					</ul>
-				</div>
+					</Heading>
+					<div className="space-y-2">
+						<div className="flex items-center gap-2">
+							<Badge color="yellow" size="2">Tip</Badge>
+							<Text size="2" color="gray">
+								Dynamic routes use square brackets: <Code>[param]</Code>
+							</Text>
+						</div>
+						<div className="flex items-center gap-2">
+							<Badge color="yellow" size="2">exp_</Badge>
+							<Text size="2" color="gray">Experience IDs start with <Code>exp_</Code></Text>
+						</div>
+						<div className="flex items-center gap-2">
+							<Badge color="yellow" size="2">biz_</Badge>
+							<Text size="2" color="gray">Company IDs start with <Code>biz_</Code></Text>
+						</div>
+						<div className="flex items-center gap-2">
+							<Badge color="yellow" size="2">app/</Badge>
+							<Text size="2" color="gray">All routes are in the <Code>app/</Code> directory (Next.js App Router)</Text>
+						</div>
+					</div>
+				</Card>
 			</div>
 		</div>
 	);

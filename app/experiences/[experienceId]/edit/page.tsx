@@ -1,5 +1,5 @@
 import { Button } from "@whop/react/components";
-import { Card, Heading, Text, Badge, Separator } from "frosted-ui";
+import { Card, Heading, Text, Badge, Separator, Callout, Code } from "frosted-ui";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
@@ -72,11 +72,14 @@ export default async function EditExperiencePage({
 						<Text size="4" color="gray" className="mb-3">
 							You're editing <strong>{experience.name}</strong>. Only admins can access this page.
 						</Text>
-						<div className="bg-green-50 border border-green-200 rounded-lg p-3 inline-block">
-							<Text size="2" color="green" className="font-mono">
-								✅ Your access level: <strong>{access.accessLevel}</strong>
-							</Text>
-						</div>
+						<Callout.Root color="green" className="p-3 inline-block">
+							<Callout.Icon>✅</Callout.Icon>
+							<Callout.Text>
+								<Text size="2" className="font-mono">
+									Your access level: <strong>{access.accessLevel}</strong>
+								</Text>
+							</Callout.Text>
+						</Callout.Root>
 					</div>
 					<div className="flex flex-col gap-2">
 						<Link href={`/experiences/${experienceId}`}>
@@ -92,33 +95,39 @@ export default async function EditExperiencePage({
 			<Card className="mb-6">
 				<Heading size="5" className="mb-4">🎓 Nested Route Pattern</Heading>
 				<div className="grid md:grid-cols-2 gap-4">
-					<div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="purple" className="mb-2">
-							📍 Route Structure
-						</Text>
-						<Text size="2" color="purple" className="font-mono">
-							/experiences/[experienceId]/edit
-						</Text>
-						<Text size="2" color="gray" className="mt-2">
-							This is a nested route under the main experience page.
-							The <code className="bg-purple-100 px-1 rounded">[experienceId]</code> parameter
-							is available from the parent route.
-						</Text>
-					</div>
-					<div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="amber" className="mb-2">
-							🔐 Access Control
-						</Text>
-						<Text size="2" color="gray">
-							This page checks <code className="bg-amber-100 px-1 rounded">access.accessLevel</code>:
-							<br />
-							- <strong>"admin"</strong> → Can edit
-							<br />
-							- <strong>"customer"</strong> → Cannot edit (redirected)
-							<br />
-							- <strong>"no_access"</strong> → Cannot access
-						</Text>
-					</div>
+					<Callout.Root color="purple">
+						<Callout.Icon>📍</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								Route Structure
+							</Text>
+							<Text size="2" className="font-mono">
+								/experiences/[experienceId]/edit
+							</Text>
+							<Text size="2" color="gray" className="mt-2">
+								This is a nested route under the main experience page.
+								The <Code>[experienceId]</Code> parameter
+								is available from the parent route.
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
+					<Callout.Root color="yellow">
+						<Callout.Icon>🔐</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								Access Control
+							</Text>
+							<Text size="2" color="gray">
+								This page checks <Code>access.accessLevel</Code>:
+								<br />
+								- <strong>"admin"</strong> → Can edit
+								<br />
+								- <strong>"customer"</strong> → Cannot edit (redirected)
+								<br />
+								- <strong>"no_access"</strong> → Cannot access
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
 				</div>
 			</Card>
 
@@ -133,11 +142,11 @@ export default async function EditExperiencePage({
 							<Text size="3" weight="bold" className="mb-2">
 								Experience Name
 							</Text>
-							<div className="bg-gray-50 border border-gray-300 rounded-lg p-3">
+							<Card className="p-3">
 								<Text size="2" color="gray">
 									{experience.name}
 								</Text>
-							</div>
+							</Card>
 							<Text size="2" color="gray" className="mt-1">
 								💡 In a real app, this would be an editable input field.
 							</Text>
@@ -147,11 +156,11 @@ export default async function EditExperiencePage({
 							<Text size="3" weight="bold" className="mb-2">
 								Description
 							</Text>
-							<div className="bg-gray-50 border border-gray-300 rounded-lg p-3 min-h-[100px]">
+							<Card className="p-3 min-h-[100px]">
 								<Text size="2" color="gray">
 									Add your edit form fields here...
 								</Text>
-							</div>
+							</Card>
 						</div>
 
 						<div className="flex gap-3">
@@ -168,20 +177,20 @@ export default async function EditExperiencePage({
 				{/* Experience Data Viewer */}
 				<Card>
 					<Heading size="5" className="mb-3">Current Experience Data</Heading>
-					<div className="bg-gray-1 border border-gray-6 rounded-lg p-4 max-h-72 overflow-y-auto">
+					<Card className="p-4 max-h-72 overflow-y-auto">
 						<pre className="text-sm font-mono text-gray-11">
 							<code>{JSON.stringify(experience, null, 2)}</code>
 						</pre>
-					</div>
+					</Card>
 				</Card>
 
 				<Card>
 					<Heading size="5" className="mb-3">Your Access Data</Heading>
-					<div className="bg-gray-1 border border-gray-6 rounded-lg p-4 max-h-72 overflow-y-auto">
+					<Card className="p-4 max-h-72 overflow-y-auto">
 						<pre className="text-sm font-mono text-gray-11">
 							<code>{JSON.stringify(access, null, 2)}</code>
 						</pre>
-					</div>
+					</Card>
 				</Card>
 			</div>
 		</div>

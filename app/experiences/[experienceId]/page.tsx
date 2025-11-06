@@ -1,5 +1,5 @@
 import { Button } from "@whop/react/components";
-import { Card, Heading, Text, Badge, Separator } from "frosted-ui";
+import { Card, Heading, Text, Badge, Separator, Callout, Code } from "frosted-ui";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
@@ -59,11 +59,14 @@ export default async function ExperiencePage({
 							Welcome to your Whop app! This page shows how dynamic routing works
 							with the [experienceId] parameter. Replace this with your own app logic.
 						</Text>
-						<div className="mt-3 bg-blue-50 border border-blue-200 rounded-lg p-3 text-left">
-							<Text size="2" color="blue" className="font-mono">
-								📍 Current Route: <strong>/experiences/{experienceId}</strong>
-							</Text>
-						</div>
+						<Callout.Root color="blue" className="mt-3">
+							<Callout.Icon>📍</Callout.Icon>
+							<Callout.Text>
+								<Text size="2" className="font-mono">
+									Current Route: <strong>/experiences/{experienceId}</strong>
+								</Text>
+							</Callout.Text>
+						</Callout.Root>
 					</div>
 					<div className="flex flex-col gap-2">
 						<Link href={`/experiences/${experienceId}/edit`}>
@@ -110,50 +113,55 @@ export default async function ExperiencePage({
 			<Card className="mb-6">
 				<Heading size="5" className="mb-4">🎓 Understanding This Route Pattern</Heading>
 				<div className="grid md:grid-cols-2 gap-4">
-					<div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="blue" className="mb-2">
-							📍 Route Structure
-						</Text>
-						<Text size="2" color="blue" className="font-mono">
-							/experiences/[experienceId]
-						</Text>
-						<Text size="2" color="gray" className="mt-2">
-							The <code className="bg-blue-100 px-1 rounded">[experienceId]</code> is a dynamic
-							parameter. When someone visits /experiences/exp_123, the page receives
-							<code className="bg-blue-100 px-1 rounded">experienceId = "exp_123"</code>
-						</Text>
-					</div>
-					<div className="bg-green-50 border border-green-200 rounded-lg p-4">
-						<Text size="3" weight="bold" color="green" className="mb-2">
-							🔑 Key Steps
-						</Text>
-						<Text size="2" color="gray">
-							1. Await params to get experienceId
-							<br />
-							2. Verify user with whopsdk.verifyUserToken()
-							<br />
-							3. Fetch experience, user, and access data
-							<br />
-							4. Render UI with the fetched data
-						</Text>
-					</div>
+					<Callout.Root color="blue">
+						<Callout.Icon>📍</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								Route Structure
+							</Text>
+							<Text size="2" className="font-mono">
+								/experiences/[experienceId]
+							</Text>
+							<Text size="2" color="gray" className="mt-2">
+								The <Code>[experienceId]</Code> is a dynamic
+								parameter. When someone visits /experiences/exp_123, the page receives
+								<Code>experienceId = "exp_123"</Code>
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
+					<Callout.Root color="green">
+						<Callout.Icon>🔑</Callout.Icon>
+						<Callout.Text>
+							<Text size="3" weight="bold" className="mb-2">
+								Key Steps
+							</Text>
+							<Text size="2" color="gray">
+								1. Await params to get experienceId
+								<br />
+								2. Verify user with whopsdk.verifyUserToken()
+								<br />
+								3. Fetch experience, user, and access data
+								<br />
+								4. Render UI with the fetched data
+							</Text>
+						</Callout.Text>
+					</Callout.Root>
 				</div>
 
-				<div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4">
-					<Text size="3" weight="bold" color="amber" className="mb-2">
-						🔗 Nested Routes
-					</Text>
-					<Text size="2" color="gray">
-						You can create sub-pages under this route by adding directories:
-						<br />
-						<code className="bg-amber-100 px-2 py-1 rounded text-xs block mt-1">
-							/experiences/[experienceId]/edit - Edit this experience
-						</code>
-						<code className="bg-amber-100 px-2 py-1 rounded text-xs block mt-1">
-							/experiences/[experienceId]/create - Create something new
-						</code>
-					</Text>
-				</div>
+				<Callout.Root color="yellow" className="mt-4">
+					<Callout.Icon>🔗</Callout.Icon>
+					<Callout.Text>
+						<Text size="3" weight="bold" className="mb-2">
+							Nested Routes
+						</Text>
+						<Text size="2" color="gray">
+							You can create sub-pages under this route by adding directories:
+							<br />
+							<Code className="block mt-1">/experiences/[experienceId]/edit - Edit this experience</Code>
+							<Code className="block mt-1">/experiences/[experienceId]/create - Create something new</Code>
+						</Text>
+					</Callout.Text>
+				</Callout.Root>
 			</Card>
 
 			<div className="space-y-6">
@@ -187,10 +195,10 @@ export default async function ExperiencePage({
 
 function JsonViewer({ data }: { data: any }) {
 	return (
-		<div className="bg-gray-1 border border-gray-6 rounded-lg p-4 max-h-72 overflow-y-auto">
+		<Card className="p-4 max-h-72 overflow-y-auto">
 			<pre className="text-sm font-mono text-gray-11">
 				<code>{JSON.stringify(data, null, 2)}</code>
 			</pre>
-		</div>
+		</Card>
 	);
 }
