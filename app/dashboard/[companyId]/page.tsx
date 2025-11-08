@@ -8,9 +8,12 @@ import {
   Callout,
   Code,
 } from "frosted-ui";
-import { headers } from "next/headers";
 import Link from "next/link";
 import { whopsdk } from "@/lib/whop-sdk";
+import {
+  requireCompanyAccess,
+  verifyAndGetUser,
+} from "@/lib/admin-guard";
 
 // Icons as text/emoji for better compatibility
 const ICONS = {
@@ -29,13 +32,13 @@ const ICONS = {
 };
 
 /**
- * COMPANY DASHBOARD PAGE - Admin-Only Access with Access Control
+ * COMPANY DASHBOARD PAGE - Admin-Only Access Control
  *
  * This page demonstrates:
  * 1. A different dynamic parameter: [companyId] instead of [experienceId]
  * 2. Company-centric routing (vs. experience-centric routing)
  * 3. Accessing company-specific data and metrics
- * 4. Admin-only access control using whopsdk.users.checkAccess
+ * 4. Admin-only access control using the admin guard
  *
  * Route: /dashboard/[companyId]
  * - The [companyId] parameter represents a business/company on Whop
@@ -44,7 +47,7 @@ const ICONS = {
  * - Only accessible to authorized company members (owners/admins)
  *
  * Access Control:
- * - Uses whopsdk.users.checkAccess(companyId, { id: userId })
+ * - Uses requireCompanyAccess() from the admin guard
  * - Returns access denied page if user is not authorized
  *
  * Use Cases:
@@ -61,18 +64,13 @@ export default async function DashboardPage({
   const { companyId } = await params;
 
   // Step 2: Verify user authentication
-  const { userId } = await whopsdk.verifyUserToken(await headers());
+  const { userId } = await verifyAndGetUser();
 
-  // Step 3: Fetch company, user data, and check access
-  const [company, user, access] = await Promise.all([
-    whopsdk.companies.retrieve(companyId),
-    whopsdk.users.retrieve(userId),
-    whopsdk.users.checkAccess(companyId, { id: userId }),
-  ]);
-
-  // Step 4: Check if user has admin access to this company
-  // Only company admins/owners should access the dashboard
-  if (!access.has_access) {
+  // Step 3: Require access to this company
+  // This throws an error if the user doesn't have access
+  try {
+    await requireCompanyAccess(companyId, userId);
+  } catch {
     return (
       <div className="p-8">
         <Card>
@@ -92,6 +90,13 @@ export default async function DashboardPage({
       </div>
     );
   }
+
+  // Step 4: Fetch company, user data, and check access (access is already verified above)
+  const [company, user, access] = await Promise.all([
+    whopsdk.companies.retrieve(companyId),
+    whopsdk.users.retrieve(userId),
+    whopsdk.users.checkAccess(companyId, { id: userId }),
+  ]);
 
   const displayName = user.name || `@${user.username}`;
 
