@@ -257,20 +257,28 @@ export default async function ItemPage({
 }
 ```
 
-### Pattern 2: Access Control
+### Pattern 2: Admin-Only Access Control
+
+For admin-only pages, use the `admin-guard` utility functions for consistent access control:
 
 ```typescript
+import {
+  requireExperienceAdmin,
+  verifyAndGetUser,
+} from "@/lib/admin-guard";
+
 export default async function AdminPage({
   params,
 }: {
   params: Promise<{ experienceId: string }>;
 }) {
   const { experienceId } = await params;
-  const { userId } = await whopsdk.verifyUserToken(await headers());
+  const { userId } = await verifyAndGetUser();
 
-  const access = await whopsdk.users.checkAccess(experienceId, { id: userId });
-
-  if (access.accessLevel !== "admin") {
+  // Verify admin access (throws error if not admin)
+  try {
+    await requireExperienceAdmin(experienceId, userId);
+  } catch {
     return (
       <div>
         <h1>Access Denied</h1>
@@ -282,6 +290,8 @@ export default async function AdminPage({
   return <div>Admin Content</div>;
 }
 ```
+
+See [ADMIN_ACCESS_CONTROL.md](./ADMIN_ACCESS_CONTROL.md) for detailed documentation on admin access control patterns.
 
 ### Pattern 3: Nested Routes
 
