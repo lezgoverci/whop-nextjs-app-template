@@ -66,7 +66,7 @@ export default async function CreatePage({
 								<Callout.Icon>✅</Callout.Icon>
 								<Callout.Text>
 									<Text size="2" className="font-mono">
-										Access: {access.accessLevel}
+										Access: {access.access_level}
 									</Text>
 								</Callout.Text>
 							</Callout.Root>

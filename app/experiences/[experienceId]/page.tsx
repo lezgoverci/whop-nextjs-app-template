@@ -74,6 +74,13 @@ export default async function ExperiencePage({
 								✏️ Edit (Admin Only)
 							</Button>
 						</Link>
+						{access.access_level === "admin" && (
+							<Link href={`/dashboard/${experience.company.id}`}>
+								<Button variant="outline" size="3">
+									🏢 Company Dashboard
+								</Button>
+							</Link>
+						)}
 						<Link href="https://docs.whop.com/apps" target="_blank">
 							<Button variant="outline" size="3">
 								Developer Docs

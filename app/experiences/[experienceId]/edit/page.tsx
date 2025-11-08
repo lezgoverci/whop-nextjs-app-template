@@ -38,7 +38,7 @@ export default async function EditExperiencePage({
 
 	// Step 4: Check if user has admin access
 	// If not admin, show access denied message
-	if (access.accessLevel !== "admin") {
+	if (access.access_level !== "admin") {
 		return (
 			<div className="p-8">
 				<Card>
@@ -76,7 +76,7 @@ export default async function EditExperiencePage({
 							<Callout.Icon>✅</Callout.Icon>
 							<Callout.Text>
 								<Text size="2" className="font-mono">
-									Your access level: <strong>{access.accessLevel}</strong>
+									Your access level: <strong>{access.access_level}</strong>
 								</Text>
 							</Callout.Text>
 						</Callout.Root>
